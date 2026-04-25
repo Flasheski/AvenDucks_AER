@@ -2,17 +2,17 @@ import pygame
 from jeu import Jeu
 
 pygame.init()
+jeu = Jeu()
 
 # fenetre du jeu 
+
 pygame.display.set_caption('Epiduck')
 fenetre = pygame.display.set_mode((1600,600))
 background = pygame.image.load('assets/backgroundEASY.png')
 
-jeu = Jeu()
+# pour garder la fenetre ouverte
 
 running = True
-
-# pour garder la fenetre ouverte
 while running:
 
     fenetre.blit(background, (0,0)) # largeur et hauteur
@@ -22,12 +22,13 @@ while running:
 
     # On affiche le canard
     fenetre.blit(jeu.canard.image, jeu.canard.rect)
-    
+
     # au départ afficher l'épée que si elle est au sol
     if jeu.epee_au_sol:
         fenetre.blit(jeu.epee.image, jeu.epee.rect)
 
     # deplacements
+
     if jeu.pressed.get(pygame.K_d):
         jeu.canard.deplacement_droite()
     elif jeu.pressed.get(pygame.K_q):
@@ -35,10 +36,14 @@ while running:
 
     pygame.display.flip() # pour recharger l'écran
 
+    #si on quitte pas la fenetre se ferme pas 
+
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
             pygame.quit()
+
+        #persistance de la touche en mode tu gardes la touches enfoncé ca avance
 
         elif event.type == pygame.KEYDOWN:
             jeu.pressed[event.key]= True

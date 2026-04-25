@@ -7,16 +7,20 @@ class Canard(pygame.sprite.Sprite):
         self.health = 100
         self.max_health = 100
         self.attack = 10 
-        self.velocity = 5
+        self.velocity = 1.5
         
         # charge les deux images
         self.image_base = pygame.image.load('assets/canard.png')
         self.image_epee = pygame.image.load('assets/canardepee.png') 
         
+        #redimensionne les images avant de créer le rect
+        self.image_base = pygame.transform.scale(self.image_base, (400, 270))
+        self.image_epee = pygame.transform.scale(self.image_epee, (400, 270))
+        
         self.image = self.image_base # image de depart sans épee
-        self.rect = self.image.get_rect() 
+        self.rect = self.image.get_rect() # maj du rect
         self.rect.x = -100
-        self.rect.y = 250
+        self.rect.y = 330
         
         self.a_une_epee = False # au début il a pas lépée
 
@@ -29,4 +33,3 @@ class Canard(pygame.sprite.Sprite):
     def ramasser_epee(self):
         self.a_une_epee = True
         self.image = self.image_epee # fonctionn pour changer l'image pour que ca face genre qu'il l'ait ramassé
-        
