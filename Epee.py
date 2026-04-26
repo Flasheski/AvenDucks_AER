@@ -15,4 +15,4 @@ class Epee(pygame.sprite.Sprite):
         
         # Coordonnées où l'épée sera posée par terre
         self.rect.x = 800
-        self.rect.y = 450
+        self.rect.y = 450 

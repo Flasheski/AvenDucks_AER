@@ -7,13 +7,13 @@ class Canard(pygame.sprite.Sprite):
         self.health = 100
         self.max_health = 100
         self.attack = 10 
-        self.velocity = 1.5
+        self.velocity = 3
         
         # charge les deux images
         self.image_base = pygame.image.load('assets/canard.png')
         self.image_epee = pygame.image.load('assets/canardepee.png') 
         
-        #redimensionne les images avant de créer le rect
+        # redimensionne les images avant de créer le rect
         self.image_base = pygame.transform.scale(self.image_base, (400, 270))
         self.image_epee = pygame.transform.scale(self.image_epee, (400, 270))
         
@@ -22,7 +22,8 @@ class Canard(pygame.sprite.Sprite):
         self.rect.x = -100
         self.rect.y = 330
         
-        self.a_une_epee = False # au début il a pas lépée
+        self.a_une_epee = False # au début il a pas l'épée
+        self.en_attaque = False # * état pour l'attaque
 
     def deplacement_droite(self):
         self.rect.x += self.velocity
@@ -32,4 +33,19 @@ class Canard(pygame.sprite.Sprite):
 
     def ramasser_epee(self):
         self.a_une_epee = True
-        self.image = self.image_epee # fonctionn pour changer l'image pour que ca face genre qu'il l'ait ramassé
+        self.actualiser_image() # On met à jour l'image en ramassant l'épée
+
+    def actualiser_image(self):
+        # sinon le canard bouge tout seul
+        centre_actuel = self.rect.center
+        
+        if self.a_une_epee:
+            if self.en_attaque:
+
+                self.image = pygame.transform.rotate(self.image_epee, -30)
+            else:
+            
+                self.image = self.image_epee
+        else:
+            self.image = self.image_base
+            
