@@ -9,7 +9,7 @@ pygame.display.set_caption('Epiduck')
 fenetre = pygame.display.set_mode((1600,600))
 background = pygame.image.load('assets/backgroundEASY.png')
 
-# je régule la vitesse du jeu
+# Horloge pour réguler la vitesse du jeu
 clock = pygame.time.Clock()
 
 # pour garder la fenetre ouverte
@@ -34,7 +34,7 @@ while running:
         fenetre.blit(jeu.boss_easy.image, jeu.boss_easy.rect) # On affiche le boss
         jeu.boss_easy.update_pv(fenetre) # On affiche sa barre de vie
 
-    # --- NOUVEAU : Affichage de la pierre si elle est au sol ---
+    # Affichage de la pierre si elle est au sol ---
     if jeu.pierre_au_sol:
         # On dessine un cercle bleu/cyan pour représenter la pierre provisoirement
         pygame.draw.circle(fenetre, (0, 255, 255), jeu.pierre_rect.center, 25)
