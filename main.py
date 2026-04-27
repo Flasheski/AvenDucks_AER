@@ -9,6 +9,9 @@ pygame.display.set_caption('Epiduck')
 fenetre = pygame.display.set_mode((1600,600))
 background = pygame.image.load('assets/backgroundEASY.png')
 
+# je régule la vitesse du jeu
+clock = pygame.time.Clock()
+
 # pour garder la fenetre ouverte
 running = True
 while running:
@@ -25,6 +28,17 @@ while running:
     if jeu.epee_au_sol:
         fenetre.blit(jeu.epee.image, jeu.epee.rect)
 
+    # Gestion du Boss Easy
+    if jeu.boss_vivant:
+        jeu.boss_easy.deplacer() # Le boss fait ses allers-retours
+        fenetre.blit(jeu.boss_easy.image, jeu.boss_easy.rect) # On affiche le boss
+        jeu.boss_easy.update_pv(fenetre) # On affiche sa barre de vie
+
+    # --- NOUVEAU : Affichage de la pierre si elle est au sol ---
+    if jeu.pierre_au_sol:
+        # On dessine un cercle bleu/cyan pour représenter la pierre provisoirement
+        pygame.draw.circle(fenetre, (0, 255, 255), jeu.pierre_rect.center, 25)
+
     # deplacements
     if jeu.pressed.get(pygame.K_d):
         jeu.canard.deplacement_droite()
@@ -36,6 +50,9 @@ while running:
         if not jeu.canard.en_attaque:
             jeu.canard.en_attaque = True
             jeu.canard.actualiser_image()
+            
+            # On lance l'attaque sur le boss
+            jeu.attaquer_boss() 
     else:
         if jeu.canard.en_attaque:
             jeu.canard.en_attaque = False
@@ -54,3 +71,6 @@ while running:
             jeu.pressed[event.key] = True
         elif event.type == pygame.KEYUP:
             jeu.pressed[event.key] = False
+
+    # je limite le jeu à 60 FPS
+    clock.tick(60)

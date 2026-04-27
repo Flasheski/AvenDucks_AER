@@ -9,8 +9,9 @@ class BossEasy(pygame.sprite.Sprite):
         self.velocity = 2
 
         # je vais mettre les sprites après
-        self.image = pygame.Surface((150,150))
-        self.image.fill((255,0,0)) # en gros je mets pour faire office du boss
+        self.image_base = pygame.image.load('assets/bosseasy.png')
+        self.image_base = pygame.transform.scale(self.image_base, (150, 150)) # en gros je mets le boss et je le transforme
+        self.image = self.image_base
         self.rect = self.image.get_rect()
 
         # je le mets à droite de l'écran
@@ -24,8 +25,10 @@ class BossEasy(pygame.sprite.Sprite):
         # je vais faire en sorte que le boss fasse des aller-retour dans sa zone
         if self.rect.x <= 700:
             self.direction = 1
+            self.image = pygame.transform.flip(self.image_base, True, False)
         elif self.rect.x >= 1300:
             self.direction = -1
+            self.image = self.image_base
         
     def update_pv(self, surface):
         # je viens dessiner la barre de pv au-dessus du boss
