@@ -58,6 +58,11 @@ while running:
             jeu.canard.en_attaque = False
             jeu.canard.actualiser_image()
 
+    # Je vais vérifier si y'a une victoire -> si oui je ferme la fenêtre
+    if jeu.victoire:
+        print("Fin du niveau, fermeture de la fenêtre...")
+        running = False
+
     pygame.display.flip() # pour recharger l'écran
 
     # si on quitte pas la fenetre se ferme pas 

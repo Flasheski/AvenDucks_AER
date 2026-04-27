@@ -17,7 +17,8 @@ class Jeu():
         self.pierre_rect = pygame.Rect(0, 0, 50, 50) # Hitbox de la pierre
         
         self.pierres_obtenues = 0 # je démarre le compteur de pierres
-        self.pressed = {} 
+        self.pressed = {}
+        self.victoire = False
 
     def verifier_collision(self):
         # on fait une nvl hitbox du canard car sinon il attrape l'épée de trop loin, plus cest bas plus il attrape de proche
@@ -40,6 +41,7 @@ class Jeu():
             print(f"💎 Pierre d'Infinité récupérée ! ")
             print(f"💎 Total des pierres récupérées : {self.pierres_obtenues}/6")
             print("==================================================")
+            self.victoire = True
 
     def attaquer_boss(self):
         # Vérifie si on a l'épée, qu'on attaque et que le boss est en vie
