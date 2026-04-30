@@ -1,6 +1,6 @@
 import pygame
 from Canard import Canard
-from codes.Epee import Epee 
+from Epee import Epee 
 
 class Jeu():
     def __init__(self):

@@ -1,5 +1,5 @@
 import pygame
-from codes.jeu import Jeu
+from jeu import Jeu
 
 pygame.init()
 jeu = Jeu()
