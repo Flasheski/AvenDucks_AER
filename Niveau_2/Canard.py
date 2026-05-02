@@ -1,48 +1,51 @@
 import pygame
+from projectiles import Projectile
 
 class Canard(pygame.sprite.Sprite):
-
     def __init__(self):
         super().__init__()
         self.health = 100
         self.max_health = 100
-        self.attack = 10 
-        self.velocity = 3
+        self.velocity = 5 # Il est plus rapide
         
-        # charge les deux images
-        self.image_base = pygame.image.load('assets/canard.png')
-        self.image_epee = pygame.image.load('assets/canardepee.png') 
+        self.image = pygame.image.load('assets/canardpistolet.png')
+        self.image = pygame.transform.scale(self.image, (300, 200))
+        self.rect = self.image.get_rect()
+        self.rect.x = 100
+        self.rect.y = 350 # Position au sol
         
-        # redimensionne les images avant de créer le rect
-        self.image_base = pygame.transform.scale(self.image_base, (400, 270))
-        self.image_epee = pygame.transform.scale(self.image_epee, (400, 270))
+        # Variables pour le saut (Step 2)
+        self.is_jumping = False
+        self.velocity_y = 0
+        self.gravity = 1
         
-        self.image = self.image_base # image de depart sans épee
-        self.rect = self.image.get_rect() # maj du rect
-        self.rect.x = -100
-        self.rect.y = 330
-        
-        self.a_une_epee = False # au début il a pas l'épée
-        self.en_attaque = False # état pour l'attaque
+        self.projectiles = pygame.sprite.Group()
 
     def deplacement_droite(self):
         self.rect.x += self.velocity
-
     def deplacement_gauche(self):
         self.rect.x -= self.velocity
 
-    def ramasser_epee(self):
-        self.a_une_epee = True
-        self.actualiser_image() # On met à jour l'image en ramassant l'épée
+    def sauter(self):
+        if not self.is_jumping:
+            self.is_jumping = True
+            self.velocity_y = -18 # Force du saut
 
-    def actualiser_image(self):
-        # sinon le canard bouge tout seul
-        centre_actuel = self.rect.center
+    def appliquer_gravite(self):
+        if self.is_jumping:
+            self.rect.y += self.velocity_y
+            self.velocity_y += self.gravity
+            if self.rect.y >= 350: # S'il retouche le sol
+                self.rect.y = 350
+                self.is_jumping = False
+
+    def tirer(self):
+        # Tire un projectile bleu clair vers la droite
+        tir = Projectile(self.rect.x + 200, self.rect.y + 80, 1, (0, 255, 255))
+        self.projectiles.add(tir)
         
-        if self.a_une_epee:
-            if self.en_attaque:
-                self.image = pygame.transform.rotate(self.image_epee, -30)
-            else:
-                self.image = self.image_epee
-        else:
-            self.image = self.image_base
+    def actualiser_projectiles(self):
+        for projectile in self.projectiles:
+            projectile.deplacer()
+            if projectile.rect.x > 1600:
+                self.projectiles.remove(projectile)

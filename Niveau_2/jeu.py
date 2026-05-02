@@ -1,24 +1,35 @@
 import pygame
 from Canard import Canard
-from Epee import Epee 
-from BossEasy import BossEasy
+from BossMedium import BossMedium
 
 class Jeu():
     def __init__(self):
         self.canard = Canard()
-        self.epee = Epee() 
-        self.boss_easy = BossEasy()
-        self.epee_au_sol = True 
+        self.boss = BossMedium()
         self.boss_vivant = True
-        self.pressed = {} 
+        self.victoire = False
+        self.pressed = {}
 
     def verifier_collision(self):
-        hitbox_canard = self.canard.rect.inflate(-150, -50)
+        if self.boss_vivant:
+            # 1 Le canard touche le boss
+            for tir in self.canard.projectiles:
+                if tir.rect.colliderect(self.boss.rect):
+                    self.boss.health -= 15
+                    self.canard.projectiles.remove(tir)
+                    
+                    if self.boss.health <= 0:
+                        self.boss_vivant = False
+                        self.victoire = True
+                        print("\n==================================================")
+                        print("💀 CYBER-DRAGON BATTU ! Niveau 2 terminé !")
+                        print("==================================================")
 
-        if self.epee_au_sol and hitbox_canard.colliderect(self.epee.rect):
-            self.epee_au_sol = False 
-            self.canard.ramasser_epee() 
-            
-        # je retire des pv au canard quand le boss le touche
-        if self.boss_vivant and hitbox_canard.colliderect(self.boss_easy.rect):
-            self.canard.health -= self.boss_easy.attack / 10
+        # 2 Le boss touche le canard
+        hitbox_canard = self.canard.rect.inflate(-100, -50)
+        for tir in self.boss.projectiles:
+            if tir.rect.colliderect(hitbox_canard):
+                self.canard.health -= 20
+                self.boss.projectiles.remove(tir)
+                if self.canard.health <= 0:
+                    print("Game Over : Tu as été désintégré !")
