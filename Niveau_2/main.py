@@ -6,21 +6,22 @@ pygame.init()
 jeu = Jeu()
 pygame.display.set_caption('Epiduck - Niveau 2')
 fenetre = pygame.display.set_mode((1600, 600))
-background = pygame.image.load('assets/backgroundEASY.png')
+background = pygame.image.load('assets/background_game.png')
 clock = pygame.time.Clock()
 
 running = True
 while running:
     fenetre.blit(background, (0, 0))
     
-    # mécaniques du jeu + collisions
+    # Mécaniques
     jeu.canard.appliquer_gravite()
     jeu.canard.actualiser_projectiles()
     jeu.verifier_collision()
 
-    # Affichage du canard et de ses tirs
+    # Affichage du canard, de ses tirs et de sa barre de vie
     fenetre.blit(jeu.canard.image, jeu.canard.rect)
     jeu.canard.projectiles.draw(fenetre)
+    jeu.canard.update_pv(fenetre)
 
     # Affichage du boss et de ses tirs
     if jeu.boss_vivant:
@@ -29,8 +30,8 @@ while running:
         jeu.boss.update_pv(fenetre)
         jeu.boss.projectiles.draw(fenetre)
         
-        # Le boss tire aléatoirement
-        if random.randint(1, 40) == 1:
+        # Cadence de tir réduite (1 chance sur 60)
+        if random.randint(1, 60) == 1:
             jeu.boss.tirer()
 
     if jeu.pressed.get(pygame.K_d):
@@ -38,8 +39,13 @@ while running:
     elif jeu.pressed.get(pygame.K_q):
         jeu.canard.deplacement_gauche()
 
+    # Fermeture de la fenêtre si fin de partie
     if jeu.victoire:
+        print("Fermeture du niveau (Victoire)...")
         running = False 
+        
+    if jeu.game_over:
+        running = False
 
     pygame.display.flip() 
 

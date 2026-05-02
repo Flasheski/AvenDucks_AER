@@ -4,7 +4,7 @@ from projectiles import Projectile
 class BossMedium(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
-        self.health = 200 # Plus de PV !
+        self.health = 200
         self.max_health = 200
         self.velocity = 3
         
@@ -15,25 +15,22 @@ class BossMedium(pygame.sprite.Sprite):
         self.rect.x = 1300
         self.rect.y = 200
         
-        self.direction_y = 1 # Déplacement vertical
-        self.projectiles = pygame.sprite.Group() # Liste de ses tirs
+        self.direction_y = 1 # 1 = descend, -1 = monte
+        self.projectiles = pygame.sprite.Group()
 
     def deplacer(self):
-        # Mouvements haut/bas
         self.rect.y += self.velocity * self.direction_y
         if self.rect.y <= 50:
             self.direction_y = 1
         elif self.rect.y >= 350:
             self.direction_y = -1
             
-        # Gère les tirs du boss
         for projectile in self.projectiles:
             projectile.deplacer()
             if projectile.rect.x < 0:
                 self.projectiles.remove(projectile)
 
     def tirer(self):
-        # Tire un laser rouge vers la gauche
         tir = Projectile(self.rect.x, self.rect.y + 100, -1, (255, 0, 0))
         self.projectiles.add(tir)
 

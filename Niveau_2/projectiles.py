@@ -1,13 +1,12 @@
 import pygame
 
 class Projectile(pygame.sprite.Sprite):
-    def __init__(self, x, y, direction, couleur):
+    def __init__(self, x, y, direction, couleur, width=20, height=10):
         super().__init__()
         self.velocity = 8
-        self.direction = direction # 1 pour la droite (Canard), -1 pour la gauche (Boss)
+        self.direction = direction # 1 = vers la droite, -1 = vers la gauche
         
-        # rectangle qui fait office de balle quand le boss tire (remplacer par une image / sprite si on en a besoin)
-        self.image = pygame.Surface((20, 10))
+        self.image = pygame.Surface((width, height))
         self.image.fill(couleur) 
         self.rect = self.image.get_rect()
         self.rect.x = x
