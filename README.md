@@ -1,6 +1,6 @@
 # 🦆 AvenDuck - Atelier JPO Epitech 🎮
 
-Bienvenue sur le dépôt d'**AvenDuck** (ou Epiduck pour les intimes) ! 
+Bienvenue sur le dépôt d'**AvenDucks** (ou Epiduck pour les intimes) ! 
 
 Ce projet a été conçu spécialement pour animer un atelier de 2 heures lors des Journées Portes Ouvertes (JPO). Son but ? Initier un public novice (collégiens, lycéens, parents) à la programmation en Python avec la bibliothèque **Pygame**, le tout de manière ludique et interactive.
 
