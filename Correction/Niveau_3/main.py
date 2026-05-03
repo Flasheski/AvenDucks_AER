@@ -56,18 +56,16 @@ while running:
         if event.type == pygame.QUIT:
             running = False
             pygame.quit()
-        # TODO : Détecter quand une touche du clavier est ENFONCÉE
-        elif event.type == pygame.________:
+        elif event.type == pygame.KEYDOWN:
             jeu.pressed[event.key] = True
             
+            # Actions du player
             if event.key == pygame.K_SPACE:
-                jeu.canard.sauter() 
-            # TODO : Assigner la touche 'E' au tir normal
-            if event.key == pygame.________:
-                jeu.canard.tirer() 
-            # TODO : Assigner la touche 'F' à l'attaque spéciale (Bazooka)
-            if event.key == pygame.________:
-                jeu.canard.tirer_special()
+                jeu.canard.sauter() # SAUT
+            if event.key == pygame.K_e:
+                jeu.canard.tirer() # TIR NORMAL
+            if event.key == pygame.K_f:
+                jeu.canard.tirer_special() # ATTAQUE SPÉCIALE BAZOOKA
                 
         elif event.type == pygame.KEYUP:
             jeu.pressed[event.key] = False

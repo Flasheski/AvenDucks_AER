@@ -3,10 +3,9 @@ import pygame
 class Epee(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
-        epee_original = pygame.image.load('assets/lame.png') 
-        self.image = pygame.transform.scale(epee_original, (110, 110))
+        self.image = pygame.image.load('assets/lame.png')
+        self.image = pygame.transform.scale(self.image, (100, 100))
         self.rect = self.image.get_rect()
-        
-        # Coordonnées où l'épée sera posée par terre
         self.rect.x = 800
-        self.rect.y = 450 
+        self.rect.y = 450
+        self.active = True

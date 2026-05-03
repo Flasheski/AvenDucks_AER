@@ -14,19 +14,16 @@ class Jeu():
     def verifier_collision(self):
         if self.boss_vivant:
             
-            # TODO : TIRS NORMAUX -> L'armure est trop épaisse !
-            for tir in self.canard.________:
+            # 1. Les tirs normaux ne font PAS de dégâts
+            for tir in self.canard.projectiles:
                 if tir.rect.colliderect(self.boss.rect):
-                    # On détruit le tir, mais on n'enlève AUCUN point de vie.
-                    self.canard.projectiles.________(tir)
-                    print("L'armure du boss est trop épaisse !")
+                    self.canard.projectiles.remove(tir)
+                    print("L'armure du boss est trop épaisse pour des tirs normaux !")
 
-            # TODO : ATTAQUE SPECIALE -> Le boss prend des dégâts !
-            for tir_spe in self.canard.________:
-                # Si le missile croise la Hitbox du boss...
-                if tir_spe.rect.________(self.boss.rect):
-                    # ...on lui retire 100 Points de Vie !
-                    self.boss.________ -= 100 
+            # 2. L'attaque spéciale fait de gros dégâts
+            for tir_spe in self.canard.projectiles_speciaux:
+                if tir_spe.rect.colliderect(self.boss.rect):
+                    self.boss.health -= 100 # -100 PV par missile !
                     self.canard.projectiles_speciaux.remove(tir_spe)
                     print(f"BOOM ! PV du Boss : {self.boss.health}")
                     
@@ -43,8 +40,7 @@ class Jeu():
         # 3. Le boss touche le canard
         hitbox_canard = self.canard.rect.inflate(-100, -50)
         for tir in self.boss.projectiles:
-            # Tu dois faire en sorte que le boss puisse tirer vers le canard !
-            if tir.rect.___________(hitbox_canard):
+            if tir.rect.colliderect(hitbox_canard):
                 self.canard.health -= 10
                 self.boss.projectiles.remove(tir)
                 

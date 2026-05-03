@@ -13,11 +13,10 @@ class Jeu():
 
     def verifier_collision(self):
         if self.boss_vivant:
+            # Le canard touche le boss
             for tir in self.canard.projectiles:
-                # TODO : Si le tir entre en collision avec le boss...
-                if tir.rect.________(self.boss.rect):
-                    # TODO : ...on retire 15 PV au boss
-                    self.boss.health -= ________
+                if tir.rect.colliderect(self.boss.rect):
+                    self.boss.health -= 15
                     self.canard.projectiles.remove(tir)
                     
                     if self.boss.health <= 0:
@@ -26,15 +25,16 @@ class Jeu():
                         print("\n==================================================")
                         print("💀 CYBER-DRAGON BATTU ! Niveau 2 terminé !")
                         print("==================================================")
-                        break
+                    break;
 
+        # Le boss touche le canard
         hitbox_canard = self.canard.rect.inflate(-100, -50)
         for tir in self.boss.projectiles:
             if tir.rect.colliderect(hitbox_canard):
-                self.canard.health -= 10 
+                self.canard.health -= 10
                 self.boss.projectiles.remove(tir)
                 
+                # Déclenchement du Game Over
                 if self.canard.health <= 0:
                     print("Game Over : Tu as été désintégré !")
                     self.game_over = True
-                    break

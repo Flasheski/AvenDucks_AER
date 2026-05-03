@@ -7,19 +7,24 @@ class Canard(pygame.sprite.Sprite):
         self.health = 100
         self.max_health = 100
         self.velocity = 5
+        
+        # Affichage du sprite du canard avec le pistolet à mini-canards
         self.image = pygame.image.load('assets/canardpistolet.png')
         self.image = pygame.transform.scale(self.image, (300, 200))
         self.rect = self.image.get_rect()
         self.rect.x = 100
         self.rect.y = 350
         
+        # Variables pour le saut
         self.is_jumping = False
         self.velocity_y = 0
         self.gravity = 1
+        
         self.projectiles = pygame.sprite.Group()
 
     def deplacement_droite(self):
         self.rect.x += self.velocity
+
     def deplacement_gauche(self):
         self.rect.x -= self.velocity
 
@@ -30,12 +35,8 @@ class Canard(pygame.sprite.Sprite):
 
     def appliquer_gravite(self):
         if self.is_jumping:
-            # TODO : La position Y du canard change selon sa vitesse verticale
-            self.rect.y += self.________
-            
-            # TODO : La gravité "freine" la montée du canard pour le faire retomber
-            self.velocity_y += self.________
-            
+            self.rect.y += self.velocity_y
+            self.velocity_y += self.gravity
             if self.rect.y >= 350:
                 self.rect.y = 350
                 self.is_jumping = False
@@ -50,9 +51,7 @@ class Canard(pygame.sprite.Sprite):
             if projectile.rect.x > 1600:
                 self.projectiles.remove(projectile)
 
+    # Barre de PV en haut à gauche
     def update_pv(self, surface):
-        # TODO : Dessine le fond gris (largeur max = self.max_health)
-        pygame.draw.rect(surface, (60, 63, 60), [20, 20, self.________, 15]) 
-        
-        # TODO : Dessine la barre verte par-dessus (largeur = self.health)
-        pygame.draw.rect(surface, (50, 205, 50), [20, 20, max(0, self.________), 15])
+        pygame.draw.rect(surface, (60, 63, 60), [20, 20, self.max_health, 15])
+        pygame.draw.rect(surface, (50, 205, 50), [20, 20, max(0, self.health), 15])

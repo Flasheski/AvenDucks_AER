@@ -4,8 +4,7 @@ from jeu import Jeu
 
 pygame.init()
 jeu = Jeu()
-
-pygame.display.set_caption('Epiduck - Niveau 3 (FINAL)')
+pygame.display.set_caption('Epiduck - Niveau 2')
 fenetre = pygame.display.set_mode((1600, 600))
 background = pygame.image.load('assets/background_game.png')
 clock = pygame.time.Clock()
@@ -14,37 +13,35 @@ running = True
 while running:
     fenetre.blit(background, (0, 0))
     
-    # Mécaniques et physique
+    # Mécaniques
     jeu.canard.appliquer_gravite()
     jeu.canard.actualiser_projectiles()
     jeu.verifier_collision()
 
-    # Affichage du canard, de ses DEUX types de tirs, et de sa barre de vie
+    # Affichage du canard, de ses tirs et de sa barre de vie
     fenetre.blit(jeu.canard.image, jeu.canard.rect)
     jeu.canard.projectiles.draw(fenetre)
-    jeu.canard.projectiles_speciaux.draw(fenetre)
     jeu.canard.update_pv(fenetre)
 
-    # Affichage et gestion du boss final
+    # Affichage du boss et de ses tirs
     if jeu.boss_vivant:
         jeu.boss.deplacer()
         fenetre.blit(jeu.boss.image, jeu.boss.rect)
         jeu.boss.update_pv(fenetre)
         jeu.boss.projectiles.draw(fenetre)
         
-        # Le boss tire aléatoirement plus vite qu'au niveau 2 (1 chance sur 30)
-        if random.randint(1, 30) == 1:
+        # Cadence de tir réduite (1 chance sur 60)
+        if random.randint(1, 60) == 1:
             jeu.boss.tirer()
 
-    # Déplacements continus
     if jeu.pressed.get(pygame.K_d):
         jeu.canard.deplacement_droite()
     elif jeu.pressed.get(pygame.K_q):
         jeu.canard.deplacement_gauche()
 
-    # Fin de partie
+    # Fermeture de la fenêtre si fin de partie
     if jeu.victoire:
-        print("Fermeture du jeu (Victoire Ultime)...")
+        print("Fermeture du niveau (Victoire)...")
         running = False 
         
     if jeu.game_over:
@@ -56,19 +53,12 @@ while running:
         if event.type == pygame.QUIT:
             running = False
             pygame.quit()
-        # TODO : Détecter quand une touche du clavier est ENFONCÉE
-        elif event.type == pygame.________:
+        elif event.type == pygame.KEYDOWN:
             jeu.pressed[event.key] = True
-            
             if event.key == pygame.K_SPACE:
-                jeu.canard.sauter() 
-            # TODO : Assigner la touche 'E' au tir normal
-            if event.key == pygame.________:
-                jeu.canard.tirer() 
-            # TODO : Assigner la touche 'F' à l'attaque spéciale (Bazooka)
-            if event.key == pygame.________:
-                jeu.canard.tirer_special()
-                
+                jeu.canard.sauter() # SAUT
+            if event.key == pygame.K_e:
+                jeu.canard.tirer() # TIR
         elif event.type == pygame.KEYUP:
             jeu.pressed[event.key] = False
 
