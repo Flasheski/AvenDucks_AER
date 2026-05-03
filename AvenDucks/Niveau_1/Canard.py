@@ -10,8 +10,8 @@ class Canard(pygame.sprite.Sprite):
         self.velocity = 3
         
         # charge les deux images
-        self.image_base = pygame.image.load('assets/canard.png')
-        self.image_epee = pygame.image.load('assets/canardepee.png') 
+        self.image_base = pygame.image.load('______________')
+        self.image_epee = pygame.image.load('_________________') 
         
         # redimensionne les images avant de créer le rect
         self.image_base = pygame.transform.scale(self.image_base, (400, 270))

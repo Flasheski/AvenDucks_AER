@@ -5,8 +5,8 @@ pygame.init()
 jeu = Jeu()
 
 pygame.display.set_caption('Epiduck - Step 4')
-fenetre = pygame.display.set_mode((1600, 600))
-background = pygame.image.load('assets/background_game.png')
+fenetre = pygame.display.set_mode((____, ____))
+background = pygame.image.load('____________________')
 clock = pygame.time.Clock()
 
 running = True

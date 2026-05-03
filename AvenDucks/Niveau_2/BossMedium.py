@@ -35,5 +35,5 @@ class BossMedium(pygame.sprite.Sprite):
         self.projectiles.add(tir)
 
     def update_pv(self, surface):
-        pygame.draw.rect(surface, (60, 63, 60), [self.rect.x, self.rect.y - 20, self.max_health, 10])
-        pygame.draw.rect(surface, (255, 0, 0), [self.rect.x, self.rect.y - 20, max(0, self.health), 10])
+        pygame.draw.rect(surface, (60, 63, 60), [self.rect.x, self.rect.y - 20, self._________, 10])
+        pygame.draw.rect(surface, (255, 0, 0), [self.rect.x, self.rect.y - 20, max(0, _________), 10])
