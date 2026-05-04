@@ -35,6 +35,9 @@ while running:
             jeu.canard.actualiser_image()
             
         jeu.verifier_attaque_joueur()
+        if not jeu.boss_vivant:
+            print("Bravo ! Fermeture du Niveau 1...")
+            running = False
     else:
         if jeu.canard.en_attaque:
             jeu.canard.en_attaque = False
