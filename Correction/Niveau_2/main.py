@@ -4,7 +4,7 @@ from jeu import Jeu
 
 pygame.init()
 jeu = Jeu()
-pygame.display.set_caption('Epiduck - Niveau 2')
+pygame.display.set_caption('AvenDucks - Niveau 2')
 fenetre = pygame.display.set_mode((1600, 600))
 background = pygame.image.load('assets/background_game.png')
 clock = pygame.time.Clock()
