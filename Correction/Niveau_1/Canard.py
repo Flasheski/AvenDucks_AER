@@ -1,7 +1,6 @@
 import pygame
 
 class Canard(pygame.sprite.Sprite):
-
     def __init__(self):
         super().__init__()
         self.health = 100
@@ -11,13 +10,13 @@ class Canard(pygame.sprite.Sprite):
         
         # charge les deux images
         self.image_base = pygame.image.load('assets/canard.png')
-        self.image_epee = pygame.image.load('assets/canardepee.png') 
+        self.image_epee = pygame.image.load('assets/canardepee.png')
         
         # redimensionne les images avant de créer le rect
         self.image_base = pygame.transform.scale(self.image_base, (400, 270))
         self.image_epee = pygame.transform.scale(self.image_epee, (400, 270))
         
-        self.image = self.image_base # image de depart sans épee
+        self.image = self.image_base # image de depart sans épée
         self.rect = self.image.get_rect() # maj du rect
         self.rect.x = -100
         self.rect.y = 330
