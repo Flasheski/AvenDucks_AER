@@ -9,7 +9,7 @@ class BossFinal(pygame.sprite.Sprite):
         self.velocity = 5 # 2 fois plus vite
         
         # Sprite du boss (tu peux garder bossMEDIUM.png ou en mettre un nouveau)
-        self.image_base = pygame.image.load('assets/bossMEDIUM.png')
+        self.image_base = pygame.image.load('assets/bossHard.png')
         self.image = pygame.transform.scale(self.image_base, (250, 250))
         self.rect = self.image.get_rect()
         
